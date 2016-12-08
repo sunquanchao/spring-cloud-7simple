@@ -1,6 +1,6 @@
 ---
 server:
-  port: 8990
+  port: 8989
 
 spring:
   application:

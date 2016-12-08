@@ -1,18 +1,23 @@
 package cloud.simple.service.conf;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import javax.annotation.PreDestroy;
 import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @EnableConfigurationProperties(DataSourceProperties.class)
 //mybaits dao 搜索路径
-//@MapperScan("cloud.simple.service.dao")
+@MapperScan("cloud.simple.service.dao")
 public class MybatisDataSource {
 	@Autowired
 	private DataSourceProperties dataSourceProperties;
@@ -20,8 +25,7 @@ public class MybatisDataSource {
 	private final static String mapperLocations="classpath:cloud/simple/service/dao/*.xml"; 
 
 	private org.apache.tomcat.jdbc.pool.DataSource pool;
-
-	@RefreshScope
+	
 	@Bean(destroyMethod = "close")
 	public DataSource dataSource() {		
 		DataSourceProperties config = dataSourceProperties;		
@@ -50,20 +54,18 @@ public class MybatisDataSource {
 			this.pool.close();
 		}
 	}
-//
-//	@Bean
-//	@RefreshScope
-//	public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
-//		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-//		sqlSessionFactoryBean.setDataSource(dataSource());
-//		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-//		sqlSessionFactoryBean.setMapperLocations(resolver.getResources(mapperLocations));
-//		 return sqlSessionFactoryBean.getObject();
-//	}
 	
-//	@Bean
-//	@RefreshScope
-//	public PlatformTransactionManager transactionManager() {
-//		return new DataSourceTransactionManager(dataSource());
-//	}
+	@Bean
+	public SqlSessionFactory sqlSessionFactoryBean() throws Exception {		
+		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+		sqlSessionFactoryBean.setDataSource(dataSource());		
+		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+		sqlSessionFactoryBean.setMapperLocations(resolver.getResources(mapperLocations));
+		 return sqlSessionFactoryBean.getObject();
+	}
+	
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		return new DataSourceTransactionManager(dataSource());
+	}
 }

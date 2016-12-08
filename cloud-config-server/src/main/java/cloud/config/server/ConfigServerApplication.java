@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @EnableDiscoveryClient
-@EnableConfigServer
+@EnableConfigServer//激活该应用为配置文件服务器即可
 public class ConfigServerApplication {
 
     public static void main(String[] args) {

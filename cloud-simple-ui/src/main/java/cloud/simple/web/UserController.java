@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cloud.simple.model.User;
+//import cloud.simple.service.UserServiceProvider.FeignUserService;
 import cloud.simple.service.UserService;
 
 

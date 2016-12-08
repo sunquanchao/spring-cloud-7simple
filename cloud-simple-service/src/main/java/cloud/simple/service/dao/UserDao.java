@@ -1,8 +1,8 @@
 package cloud.simple.service.dao;
 
-import cloud.simple.service.model.User;
-
 import java.util.List;
+
+import cloud.simple.service.model.User;
 
 
 public interface UserDao {

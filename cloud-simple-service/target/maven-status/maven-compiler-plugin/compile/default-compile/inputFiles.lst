@@ -1,0 +1,6 @@
+D:\workspace\spring-cloud-7simple\cloud-simple-service\src\main\java\cloud\simple\service\domain\UserService.java
+D:\workspace\spring-cloud-7simple\cloud-simple-service\src\main\java\cloud\simple\service\dao\UserDao.java
+D:\workspace\spring-cloud-7simple\cloud-simple-service\src\main\java\cloud\simple\service\conf\DataSourceProperties.java
+D:\workspace\spring-cloud-7simple\cloud-simple-service\src\main\java\cloud\simple\service\model\User.java
+D:\workspace\spring-cloud-7simple\cloud-simple-service\src\main\java\cloud\simple\service\conf\MybatisDataSource.java
+D:\workspace\spring-cloud-7simple\cloud-simple-service\src\main\java\cloud\simple\service\web\UserController.java
